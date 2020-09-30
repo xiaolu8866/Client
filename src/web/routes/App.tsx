@@ -3,9 +3,7 @@ import { Route, Switch, HashRouter, BrowserRouter } from 'react-router-dom';
 import config from '@shared/project.config';
 import { TMemo } from '@shared/components/TMemo';
 import ErrorBoundary from '@web/containers/ErrorBoundary';
-import { AppBanner } from '@web/components/AppBanner';
 import { GlobalUI } from '@web/containers/GlobalUI';
-import NetworkIndicator from '@web/components/NetworkIndicator';
 import { LaunchRoute } from './Launch';
 import Login from '@web/containers/Login';
 import Register from '@web/containers/Register';
@@ -17,6 +15,7 @@ import { PortalHost } from '@web/utils/portal';
 import { NetworkStatusModal } from '@web/components/NetworkStatusModal';
 import { DarkMode } from './DarkMode';
 import { PWAContextProvider } from '@web/components/PWAContext';
+import { RTCRoomClientContextProvider } from '@rtc/RoomContext';
 
 // 新版Web页面
 
@@ -28,9 +27,11 @@ const Router: any =
 const CustomProvider: React.FC = (props) => {
   return (
     <PWAContextProvider>
-      <PortalProvider>
-        <PortalHost>{props.children}</PortalHost>
-      </PortalProvider>
+      <RTCRoomClientContextProvider>
+        <PortalProvider>
+          <PortalHost>{props.children}</PortalHost>
+        </PortalProvider>
+      </RTCRoomClientContextProvider>
     </PWAContextProvider>
   );
 };
