@@ -16,6 +16,7 @@ import { NetworkStatusModal } from '@web/components/NetworkStatusModal';
 import { DarkMode } from './DarkMode';
 import { PWAContextProvider } from '@web/components/PWAContext';
 import { RTCRoomClientContextProvider } from '@rtc/RoomContext';
+import { GlobalVoiceProvider } from '@web/components/rtc/GlobalVoice';
 
 // 新版Web页面
 
@@ -28,9 +29,11 @@ const CustomProvider: React.FC = (props) => {
   return (
     <PWAContextProvider>
       <RTCRoomClientContextProvider>
-        <PortalProvider>
-          <PortalHost>{props.children}</PortalHost>
-        </PortalProvider>
+        <GlobalVoiceProvider>
+          <PortalProvider>
+            <PortalHost>{props.children}</PortalHost>
+          </PortalProvider>
+        </GlobalVoiceProvider>
       </RTCRoomClientContextProvider>
     </PWAContextProvider>
   );
